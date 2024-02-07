@@ -20,11 +20,14 @@ class Database:
     
     def mysql():
         pkl = pd.read_pickle(r'.streamlit/db_cred.pkl')
-        host = pkl['host'][0]
-        user=pkl['user'][0]
-        password=pkl['password'][0]
-        database= pkl['database'][0]
-        # Create a SQLAlchemy engine
-        engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{host}/{database}")
+        host = pkl['host']
+        user = pkl['user'][0]
+        password = pkl['password'][0]
+        database = pkl['database'][0]
+        port = pkl['port'][0]  # Assuming you have a 'port' field in your db_cred.pkl
+
+        # Create a SQLAlchemy engine with the port included
+        engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}")
+
         return engine
 
